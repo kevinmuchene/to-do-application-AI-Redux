@@ -13,8 +13,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-export default function ToDoItem(props) {
-  const { dateCreated, title, description } = props.todo;
+export default function ToDoItem({ todo }) {
+  const { dateCreated, title, description } = todo;
 
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
