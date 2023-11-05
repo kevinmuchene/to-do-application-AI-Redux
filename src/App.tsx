@@ -8,6 +8,7 @@ import {
 import AddToDo from "./components/AddToDo";
 import ToDoListWrapper from "./components/ToDoListWrapper";
 import RootLayout from "./components/RootLayout";
+import { TodoProvider } from "./context/TodoContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,9 +23,9 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <>
+    <TodoProvider>
       <RouterProvider router={router}></RouterProvider>
-    </>
+    </TodoProvider>
   );
 }
 

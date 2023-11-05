@@ -5,19 +5,32 @@ import { Container, Grid, CardHeader } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormik } from "formik";
 import { getCurrentDateFormatted } from "../common/GetDate";
+import { useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
+import { generateUuid } from "../common/GenerateId";
+import { ToDo } from "../common/interfaces/ToDoInterface";
 
 export default function AddToDo() {
+  const { setListOfTodos } = useContext(TodoContext);
+
   const formik = useFormik({
     initialValues: {
+      id: generateUuid(),
       title: "",
       description: "",
       dateCreated: getCurrentDateFormatted(),
     },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
+      handleAddToDo(values);
       resetForm();
     },
   });
+
+  const handleAddToDo = (newTodo: ToDo) => {
+    setListOfTodos((prevTodo) => [...prevTodo, newTodo]);
+  };
+
   return (
     <Container sx={{ marginTop: "2em" }}>
       <Card sx={{ minWidth: 300, backgroundColor: "#80b8f0" }}>

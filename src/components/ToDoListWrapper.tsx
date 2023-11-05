@@ -3,12 +3,13 @@ import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Link } from "react-router-dom";
-import { todos } from "../dummydata/todolist";
-import { useState } from "react";
+
+import { useContext } from "react";
+import { TodoContext } from "../context/TodoContext";
 
 export default function ToDoListWrapper() {
-  const [listOfTodos, setListOfTodos] = useState(todos);
-
+  const { listOfTodos } = useContext(TodoContext);
+  console.log(listOfTodos);
   return (
     <Container sx={{ marginTop: "2em" }}>
       <Box
@@ -61,8 +62,8 @@ export default function ToDoListWrapper() {
                 Add To Do
               </Button>
             </Link>
-            {listOfTodos.map((todo) => (
-              <ToDoItem key={todo.id} todo={todo} />
+            {listOfTodos.map((todo, index) => (
+              <ToDoItem key={index} todo={todo} />
             ))}
           </Container>
         </Paper>
