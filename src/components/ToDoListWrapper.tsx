@@ -49,6 +49,22 @@ export default function ToDoListWrapper() {
             maxHeight: "80vh",
             overflow: "auto",
             backgroundColor: "#ACE1AF",
+
+            overflowY: "scroll", // Activate scrollbar for overflow
+            "&::-webkit-scrollbar": {
+              width: "10px", // Width of the scrollbar
+            },
+            "&::-webkit-scrollbar-track": {
+              boxShadow: "inset 0 0 5px grey", // Styling for the track
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "purple", // Color of the scrollbar thumb
+              borderRadius: "10px",
+              "&:hover": {
+                background: "#b5651d", // Color of the thumb on hover
+              },
+            },
           },
         }}
       >
