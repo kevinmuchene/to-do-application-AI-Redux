@@ -9,9 +9,11 @@ import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
 import { generateUuid } from "../common/GenerateId";
 import { ToDo } from "../common/interfaces/ToDoInterface";
+import { useNavigate } from "react-router-dom";
 
 export default function AddToDo() {
   const { setListOfTodos } = useContext(TodoContext);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -24,6 +26,7 @@ export default function AddToDo() {
       console.log(values);
       handleAddToDo(values);
       resetForm();
+      navigate("/");
     },
   });
 
