@@ -2,6 +2,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { Link } from "react-router-dom";
 
 export default function ToDoListWrapper() {
   return (
@@ -47,13 +48,15 @@ export default function ToDoListWrapper() {
       >
         <Paper elevation={5}>
           <Container sx={{ marginTop: "2em", marginBottom: "2em" }}>
-            <Button
-              variant="outlined"
-              color="warning"
-              sx={{ marginBottom: "1em" }}
-            >
-              Add To Do
-            </Button>
+            <Link to="/add_to_do">
+              <Button
+                variant="outlined"
+                color="warning"
+                sx={{ marginBottom: "1em" }}
+              >
+                Add To Do
+              </Button>
+            </Link>
             <ToDoItem />
           </Container>
         </Paper>
