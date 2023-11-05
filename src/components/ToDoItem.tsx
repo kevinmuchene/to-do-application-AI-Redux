@@ -13,7 +13,9 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-export default function ToDoItem() {
+export default function ToDoItem(props) {
+  const { dateCreated, title, description } = props.todo;
+
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
       <ListItem
@@ -21,7 +23,7 @@ export default function ToDoItem() {
         secondaryAction={
           <Grid container justifyContent="flex-end" alignItems={"flex-end"}>
             <Grid item xs={12} sm="auto" alignSelf="flex-end">
-              <MyComponent />
+              <MyComponent date={dateCreated} />
             </Grid>
           </Grid>
         }
@@ -30,9 +32,7 @@ export default function ToDoItem() {
           <Avatar alt="Remy Sharp" />
         </ListItemAvatar>
         <ListItemText
-          primary={
-            <Typography color={"secondary"}>Brunch this weekend?</Typography>
-          }
+          primary={<Typography color={"secondary"}>{title}</Typography>}
           secondary={
             <React.Fragment>
               <Typography
@@ -41,7 +41,7 @@ export default function ToDoItem() {
                 variant="body2"
                 color="text.primary"
               >
-                " — I'll be in your neighborhood doing errands this…—
+                {description}
               </Typography>
             </React.Fragment>
           }
@@ -49,76 +49,11 @@ export default function ToDoItem() {
       </ListItem>
 
       <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {" — Do you have Paris recommendations? Have you ever…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {" — Do you have Paris recommendations? Have you ever…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
     </List>
   );
 }
 
-function MyComponent() {
+function MyComponent({ date }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -129,7 +64,7 @@ function MyComponent() {
         <IconButton edge="end" aria-label="calendar">
           <CalendarMonthIcon sx={{ color: "purple" }} />
         </IconButton>
-        <Typography variant="caption">06/21/2023</Typography>
+        <Typography variant="caption">{date}</Typography>
         <IconButton edge="end" aria-label="done">
           <DoneIcon sx={{ color: "green" }} />
         </IconButton>
@@ -147,7 +82,7 @@ function MyComponent() {
             <IconButton edge="end" aria-label="calendar">
               <CalendarMonthIcon sx={{ color: "purple" }} />
             </IconButton>
-            <Typography variant="caption">06/21/2023</Typography>
+            <Typography variant="caption">{date}</Typography>
           </Stack>
         </Grid>
         <Grid item>

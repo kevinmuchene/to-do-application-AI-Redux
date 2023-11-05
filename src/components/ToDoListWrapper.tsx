@@ -3,8 +3,12 @@ import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Link } from "react-router-dom";
+import { todos } from "../dummydata/todolist";
+import { useState } from "react";
 
 export default function ToDoListWrapper() {
+  const [listOfTodos, setListOfTodos] = useState(todos);
+
   return (
     <Container sx={{ marginTop: "2em" }}>
       <Box
@@ -57,7 +61,9 @@ export default function ToDoListWrapper() {
                 Add To Do
               </Button>
             </Link>
-            <ToDoItem />
+            {listOfTodos.map((todo) => (
+              <ToDoItem key={todo.id} todo={todo} />
+            ))}
           </Container>
         </Paper>
       </Box>
