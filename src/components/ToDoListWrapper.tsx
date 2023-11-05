@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography, Alert } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -9,7 +9,8 @@ import { TodoContext } from "../context/TodoContext";
 
 export default function ToDoListWrapper() {
   const { listOfTodos } = useContext(TodoContext);
-  console.log(listOfTodos);
+  // console.log(listOfTodos);
+
   return (
     <Container sx={{ marginTop: "2em" }}>
       <Box
@@ -62,9 +63,15 @@ export default function ToDoListWrapper() {
                 Add To Do
               </Button>
             </Link>
-            {listOfTodos.map((todo, index) => (
-              <ToDoItem key={index} todo={todo} />
-            ))}
+            {listOfTodos.length !== 0 ? (
+              listOfTodos.map((todo, index) => (
+                <ToDoItem key={index} todo={todo} />
+              ))
+            ) : (
+              <Alert variant="filled" severity="warning">
+                You don't have any to dos, add them to get them done!!
+              </Alert>
+            )}
           </Container>
         </Paper>
       </Box>
