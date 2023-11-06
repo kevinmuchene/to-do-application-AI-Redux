@@ -3,7 +3,7 @@ import { todos } from "../dummydata/todolist";
 import {
   TodoContextProps,
   TodoProviderProps,
-} from "../common/interfaces/ToDoInterface";
+} from "../common/interfaces/Interfaces";
 
 export const TodoContext = createContext<TodoContextProps>({
   listOfTodos: [],

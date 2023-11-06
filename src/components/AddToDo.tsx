@@ -8,7 +8,7 @@ import { getCurrentDateFormatted } from "../common/GetDate";
 import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
 import { generateUuid } from "../common/GenerateId";
-import { ToDo } from "../common/interfaces/ToDoInterface";
+import { ToDo } from "../common/interfaces/Interfaces";
 import { useNavigate } from "react-router-dom";
 
 export default function AddToDo() {

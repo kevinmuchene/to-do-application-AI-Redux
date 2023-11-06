@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { List, Grid, Stack, Alert } from "@mui/material";
+import React from "react";
+import { List, Grid, Stack } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
@@ -12,59 +12,31 @@ import DoneIcon from "@mui/icons-material/Done";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { TodoContext } from "../context/TodoContext";
+import { MyComponentProps, ToDo } from "../common/interfaces/Interfaces";
+import { useTodoOperations } from "./customhooks/useTodoOperations";
+import { CustomAlert } from "./resuable/CustomAlert";
 
-export default function ToDoItem({ todo }) {
+export default function ToDoItem({ todo }: { todo: ToDo }) {
   const { id, dateCreated, title, description } = todo;
-  const { listOfTodos, setListOfTodos } = useContext(TodoContext);
-  const [successAlert, setSuccessAlert] = useState<boolean>(false);
-  const [deleteSuccessAlert, setDeleteSuccessAlert] = useState<boolean>(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSuccessAlert(false);
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, [successAlert]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDeleteSuccessAlert(false);
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, [deleteSuccessAlert]);
-
-  const deleteTodo = (id: string) => {
-    let myTodos = listOfTodos.filter((todo) => todo.id !== id);
-    updateToDo(myTodos);
-    // console.log(myTodos);
-    setDeleteSuccessAlert(true);
-  };
-
-  const doneTodo = (id: string) => {
-    let myTodos = listOfTodos.filter((todo) => todo.id !== id);
-    updateToDo(myTodos);
-    setSuccessAlert(true);
-    // console.log(myTodos);
-  };
-
-  const updateToDo = (newTodo: ToDo) => {
-    setListOfTodos(() => newTodo);
-  };
+  const { deleteTodo, doneTodo, successAlert, deleteAlert } =
+    useTodoOperations();
 
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
       {successAlert && (
-        <Alert severity="success" variant="filled">
-          Thats right, awesome. Get it done!!
-        </Alert>
+        <CustomAlert
+          severity="success"
+          variant="filled"
+          message={"Thats right, awesome. Get it done!!"}
+        />
       )}
-      {deleteSuccessAlert && (
-        <Alert severity="warning" variant="filled">
-          Hope you got it done!! No need to procastinate :)
-        </Alert>
+      {deleteAlert && (
+        <CustomAlert
+          severity="warning"
+          variant="filled"
+          message={"Hope you got it done!! No need to procastinate :)"}
+        />
       )}
 
       <ListItem
@@ -107,7 +79,12 @@ export default function ToDoItem({ todo }) {
   );
 }
 
-function MyComponent({ date, deleteTodo, id, doneTodo }) {
+const MyComponent: React.FC<MyComponentProps> = ({
+  date,
+  deleteTodo,
+  id,
+  doneTodo,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -156,4 +133,4 @@ function MyComponent({ date, deleteTodo, id, doneTodo }) {
       </Grid>
     );
   }
-}
+};

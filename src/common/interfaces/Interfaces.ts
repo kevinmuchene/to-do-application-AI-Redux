@@ -15,3 +15,16 @@ export interface TodoContextProps {
 export interface TodoProviderProps {
   children: ReactNode; // This is the type for children
 }
+
+export interface AlertProps {
+  severity: "error" | "warning" | "info" | "success";
+  variant: "filled" | "outlined" | "standard";
+  message: string;
+}
+
+export interface MyComponentProps {
+  date: string;
+  deleteTodo: (id: string) => void;
+  id: string;
+  doneTodo: (id: string) => void;
+}
