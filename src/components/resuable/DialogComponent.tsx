@@ -36,12 +36,20 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
         fullWidth
       >
         <DialogTitle>
-          {doneOrDeleted === "done" ? "Done ToDo's" : "Deleted ToDo's"}
+          {doneOrDeleted === "done" ? (
+            <Typography variant="h6" color={"green"}>
+              Done ToDo's
+            </Typography>
+          ) : (
+            <Typography variant="h6" color={"purple"}>
+              Deleted ToDo's
+            </Typography>
+          )}
         </DialogTitle>
         <DialogContent>
           {modalToDoList.length === 0 ? (
             <CustomAlert
-              severity={"info"}
+              severity={doneOrDeleted === "done" ? "success" : "success"}
               variant={"filled"}
               message={
                 doneOrDeleted === "done"
