@@ -69,3 +69,7 @@ export const todos = [
     dateCreated: "2023-11-05",
   },
 ];
+
+export const doneList = [];
+
+export const deletedTodos = [];

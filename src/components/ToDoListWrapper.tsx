@@ -8,8 +8,10 @@ import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
 
 export default function ToDoListWrapper() {
-  const { listOfTodos } = useContext(TodoContext);
-  // console.log(listOfTodos);
+  const { listOfTodos, listOfDoneTodos, listOfDeletedTodos } =
+    useContext(TodoContext);
+  console.log(listOfDoneTodos);
+  console.log(listOfDeletedTodos);
 
   return (
     <Container sx={{ marginTop: "2em" }}>
