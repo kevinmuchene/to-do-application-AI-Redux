@@ -10,6 +10,10 @@ export interface ToDo {
 export interface TodoContextProps {
   listOfTodos: ToDo[];
   setListOfTodos: React.Dispatch<React.SetStateAction<ToDo[]>>;
+  listOfDoneTodos: ToDo[];
+  setListOfDoneTodos: React.Dispatch<React.SetStateAction<ToDo[]>>;
+  listOfDeletedTodos: ToDo[];
+  setListOfDeletedTodos: React.Dispatch<React.SetStateAction<ToDo[]>>;
 }
 
 export interface TodoProviderProps {
