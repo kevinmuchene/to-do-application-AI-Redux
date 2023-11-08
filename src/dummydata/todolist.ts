@@ -70,6 +70,14 @@ export const todos = [
   },
 ];
 
-export const doneList = [];
+export const doneList = [
+  // {
+  //   id: "10e9d11c5-da8f-4a4e-b9b1-ee5a9b3b8a6b",
+  //   title: "Prepare Tax Documents",
+  //   description:
+  //     "Gather all necessary financial documents to prepare for tax filing before the end of the year.",
+  //   dateCreated: "2023-11-05",
+  // },
+];
 
 export const deletedTodos = [];

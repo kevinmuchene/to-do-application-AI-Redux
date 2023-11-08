@@ -30,13 +30,13 @@ export const useTodoOperations = () => {
   const listOfDoneTodos = (id: string) => {
     const doneToDo = listOfTodos.filter((todo) => todo.id === id);
 
-    setListOfDoneTodos((prevTodo) => [...prevTodo, ...doneToDo]);
+    setListOfDoneTodos((prevTodo) => [...doneToDo, ...prevTodo]);
   };
 
   const listOfDeletedTodos = (id: string) => {
     const deletedToDo = listOfTodos.filter((todo) => todo.id === id);
 
-    setListOfDeletedTodos((prevTodo) => [...prevTodo, ...deletedToDo]);
+    setListOfDeletedTodos((prevTodo) => [...deletedToDo, ...prevTodo]);
   };
 
   return {

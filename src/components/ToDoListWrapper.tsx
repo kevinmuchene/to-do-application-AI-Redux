@@ -1,4 +1,6 @@
-import { Box, Button, Container, Typography, Alert } from "@mui/material";
+import React from "react";
+
+import { Box, Button, Container, Typography, Alert, Grid } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -6,15 +8,49 @@ import { Link } from "react-router-dom";
 
 import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
+import { DialogComponent } from "./resuable/DialogComponent";
+import { ToDo } from "../common/interfaces/Interfaces";
+import ChecklistIcon from "@mui/icons-material/Checklist";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 export default function ToDoListWrapper() {
   const { listOfTodos, listOfDoneTodos, listOfDeletedTodos } =
     useContext(TodoContext);
-  console.log(listOfDoneTodos);
-  console.log(listOfDeletedTodos);
+
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [modalToDoList, setModalToDoList] = React.useState<ToDo[]>([]);
+  const [doneOrDeleted, setDoneOrDeleted] = React.useState<string>("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const setModalDoneTodos = () => {
+    setModalToDoList(listOfDoneTodos);
+    setDoneOrDeleted("done");
+  };
+
+  const setModalDeletedTodos = () => {
+    setModalToDoList(listOfDeletedTodos);
+    setDoneOrDeleted("deleted");
+  };
+
+  // console.log(listOfDoneTodos);
+  // console.log(listOfDeletedTodos);
 
   return (
     <Container sx={{ marginTop: "2em" }}>
+      <DialogComponent
+        open={open}
+        handleClose={handleClose}
+        modalToDoList={modalToDoList}
+        doneOrDeleted={doneOrDeleted}
+      />
       <Box
         sx={{
           display: "flex",
@@ -72,22 +108,64 @@ export default function ToDoListWrapper() {
       >
         <Paper elevation={5}>
           <Container sx={{ marginTop: "2em", marginBottom: "2em" }}>
-            <Link to="/add_to_do">
-              <Button
-                variant="outlined"
-                color="warning"
-                sx={{ marginBottom: "1em" }}
-              >
-                Add To Do
-              </Button>
-            </Link>
+            <Grid
+              container
+              sx={{
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  sx={{ marginBottom: "1em" }}
+                  onClick={() => {
+                    handleClickOpen();
+                    setModalDoneTodos();
+                  }}
+                  startIcon={<ChecklistIcon />}
+                >
+                  Done ToDo's
+                </Button>
+              </Grid>
+              <Grid item>
+                <Link to="/add_to_do">
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    sx={{ marginBottom: "1em" }}
+                    startIcon={<AddIcon />}
+                  >
+                    Add ToDo
+                  </Button>
+                </Link>
+              </Grid>
+
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  sx={{ marginBottom: "1em" }}
+                  onClick={() => {
+                    handleClickOpen();
+                    setModalDeletedTodos();
+                  }}
+                  startIcon={<DeleteForeverIcon />}
+                >
+                  Deleted ToDo's
+                </Button>
+              </Grid>
+            </Grid>
+
             {listOfTodos.length !== 0 ? (
               listOfTodos.map((todo, index) => (
                 <ToDoItem key={index} todo={todo} />
               ))
             ) : (
               <Alert variant="filled" severity="warning">
-                You don't have any to dos, add them to get them done!!
+                You Don't Have Any ToDos, Add - To Get Them Done!! Or View
+                Completed | Deleted
               </Alert>
             )}
           </Container>

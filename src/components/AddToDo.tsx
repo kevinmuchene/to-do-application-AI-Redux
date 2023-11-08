@@ -23,7 +23,6 @@ export default function AddToDo() {
       dateCreated: getCurrentDateFormatted(),
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       handleAddToDo(values);
       resetForm();
       navigate("/");
@@ -31,7 +30,7 @@ export default function AddToDo() {
   });
 
   const handleAddToDo = (newTodo: ToDo) => {
-    setListOfTodos((prevTodo) => [...prevTodo, newTodo]);
+    setListOfTodos((prevTodo) => [newTodo, ...prevTodo]);
   };
 
   return (

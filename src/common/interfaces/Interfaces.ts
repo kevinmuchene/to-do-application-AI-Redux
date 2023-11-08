@@ -32,3 +32,10 @@ export interface MyComponentProps {
   id: string;
   doneTodo: (id: string) => void;
 }
+
+export interface DialogComponentProps {
+  open: boolean;
+  handleClose: () => void;
+  modalToDoList: ToDo[];
+  doneOrDeleted: string;
+}
