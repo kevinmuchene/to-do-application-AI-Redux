@@ -1,35 +1,51 @@
-# React + TypeScript + Vite
+# Todo Application - React with useContext and Redux
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This repository contains a simple todo application built using React, TypeScript, and Material UI. The primary objective of this application is to demonstrate two different state management strategies: React's useContext hook and Redux. By comparing these strategies, developers can understand the trade-offs and decide which approach suits their project's needs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+1. State Management: Implements useContext hook and Redux for state management across components.
+2. TypeScript Integration: Utilizes TypeScript for static type checking in both state management approaches.
+3. Reusable Components: Leverages custom hooks and reusable components to adhere to the Single Responsibility Principle.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Branches
 
-- Configure the top-level `parserOptions` property like this:
+1. useContext-branch: Contains the implementation using React's useContext hook for state management.
+2. redux-branch: Features Redux for more complex state management scenarios.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+# Getting Started
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Prerequistes
 
-# to-do-application
+1. Node.js
+2. npm or yarn package manager
 
-To-Do React Web App
-React
-TypeScript
-Material-UI
-React-Router v6
+## Installation
+1. Clone the repositiory:
+
+   git clone https://github.com/kevinmuchene/to-do-application-useContext-or-redux.git
+
+2. Switch to the desired branch
+
+   For useContext hook implementation: git checkout useContext-branch
+   
+   For Redux implmentation: git checkout redux-branch
+
+3. Install the dependencies
+
+   npm install
+
+4. Start the development server
+
+   npm start
+
+## Comparison
+
+The useContext-branch is simpler and best suited for applications with a less complex state or for those who prefer a minimalistic approach. The redux-branch, while initially requiring more setup code, offers a robust solution for larger applications with more complex state management needs.
+
+Both branches demonstrate the usage of TypeScript for type safety and how it integrates seamlessly with different state management strategies.
+
+
+### React + TypeScript + Vite
