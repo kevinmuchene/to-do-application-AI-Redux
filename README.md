@@ -39,7 +39,7 @@ This repository contains a simple todo application built using React, TypeScript
 
 4. Start the development server
 
-   npm start
+   npm run dev
 
 ## Comparison
 
