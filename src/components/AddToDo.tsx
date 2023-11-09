@@ -30,10 +30,10 @@ export default function AddToDo() {
 
   return (
     <Container sx={{ marginTop: "2em" }}>
-      <Card sx={{ minWidth: 300, backgroundColor: "#80b8f0" }}>
+      <Card sx={{ minWidth: 300, backgroundColor: "#ACE1AF" }}>
         <CardHeader
           title={
-            <Typography variant="h5" color={"purple"}>
+            <Typography variant="h5" color={"#ff5f00"}>
               Add It! Get It Done!
             </Typography>
           }
