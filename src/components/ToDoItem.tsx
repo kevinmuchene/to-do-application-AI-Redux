@@ -19,7 +19,7 @@ import { CustomAlert } from "./resuable/CustomAlert";
 export default function ToDoItem({ todo }: { todo: ToDo }) {
   const { id, dateCreated, title, description } = todo;
 
-  const { deleteTodo, doneTodo, successAlert, deleteAlert } =
+  const { deleteTodos, doneTodo, successAlert, deleteAlert } =
     useTodoOperations();
 
   return (
@@ -46,7 +46,7 @@ export default function ToDoItem({ todo }: { todo: ToDo }) {
             <Grid item xs={12} sm="auto" alignSelf="flex-end">
               <MyComponent
                 date={dateCreated}
-                deleteTodo={deleteTodo}
+                deleteTodo={deleteTodos}
                 id={id}
                 doneTodo={doneTodo}
               />

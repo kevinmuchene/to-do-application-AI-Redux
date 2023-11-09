@@ -37,13 +37,9 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
       >
         <DialogTitle>
           {doneOrDeleted === "done" ? (
-            <Typography variant="h6" color={"green"}>
-              Done ToDo's
-            </Typography>
+            <Typography color={"green"}>Done ToDo's</Typography>
           ) : (
-            <Typography variant="h6" color={"purple"}>
-              Deleted ToDo's
-            </Typography>
+            <Typography color={"purple"}>Deleted ToDo's</Typography>
           )}
         </DialogTitle>
         <DialogContent>

@@ -1,22 +1,23 @@
 import React from "react";
-
 import { Box, Button, Container, Typography, Alert, Grid } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Link } from "react-router-dom";
-
-import { useContext } from "react";
-import { TodoContext } from "../context/TodoContext";
 import { DialogComponent } from "./resuable/DialogComponent";
 import { ToDo } from "../common/interfaces/Interfaces";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useAppSelector } from "./redux/Hooks";
+import { selectTodo } from "./redux/slices/toDoSlice";
+import { selectDoneTodos } from "./redux/slices/doneToDosSlice";
+import { selectDeletedTodos } from "./redux/slices/deleteToDosSlice";
 
 export default function ToDoListWrapper() {
-  const { listOfTodos, listOfDoneTodos, listOfDeletedTodos } =
-    useContext(TodoContext);
+  const toDos = useAppSelector(selectTodo);
+  const doneToDos = useAppSelector(selectDoneTodos);
+  const deleteToDos = useAppSelector(selectDeletedTodos);
 
   const [open, setOpen] = React.useState<boolean>(false);
   const [modalToDoList, setModalToDoList] = React.useState<ToDo[]>([]);
@@ -31,17 +32,14 @@ export default function ToDoListWrapper() {
   };
 
   const setModalDoneTodos = () => {
-    setModalToDoList(listOfDoneTodos);
+    setModalToDoList(doneToDos);
     setDoneOrDeleted("done");
   };
 
   const setModalDeletedTodos = () => {
-    setModalToDoList(listOfDeletedTodos);
+    setModalToDoList(deleteToDos);
     setDoneOrDeleted("deleted");
   };
-
-  // console.log(listOfDoneTodos);
-  // console.log(listOfDeletedTodos);
 
   return (
     <Container sx={{ marginTop: "2em" }}>
@@ -158,10 +156,8 @@ export default function ToDoListWrapper() {
               </Grid>
             </Grid>
 
-            {listOfTodos.length !== 0 ? (
-              listOfTodos.map((todo, index) => (
-                <ToDoItem key={index} todo={todo} />
-              ))
+            {toDos.length !== 0 ? (
+              toDos.map((todo, index) => <ToDoItem key={index} todo={todo} />)
             ) : (
               <Alert variant="filled" severity="warning">
                 You Don't Have Any ToDos, Add - To Get Them Done!! Or View

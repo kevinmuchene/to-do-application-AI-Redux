@@ -1,46 +1,26 @@
-import { useContext } from "react";
-import { TodoContext } from "../../context/TodoContext";
 import { useAlert } from "./useAlert";
+import { useAppDispatch } from "../redux/Hooks";
+import { deletedToDoAndAddToDoneTods } from "../redux/thunks/deleteToDoAndAddToDoneTodos";
+import { deleteToDoAndAddToDeleted } from "../redux/thunks/deleteToDoAndAddToDeleted";
 
 export const useTodoOperations = () => {
-  const {
-    listOfTodos,
-    setListOfTodos,
-    setListOfDoneTodos,
-    setListOfDeletedTodos,
-  } = useContext(TodoContext);
+  const dispatch = useAppDispatch();
 
   const [successAlert, setSuccessAlert] = useAlert(false);
   const [deleteAlert, setDeleteAlert] = useAlert(false);
 
-  const deleteTodo = (id: string) => {
-    const updatedTodos = listOfTodos.filter((todo) => todo.id !== id);
-    listOfDeletedTodos(id);
-    setListOfTodos(updatedTodos);
+  const deleteTodos = (id: string) => {
+    dispatch(deleteToDoAndAddToDeleted(id));
     setDeleteAlert(true);
   };
 
   const doneTodo = (id: string) => {
-    const updatedTodos = listOfTodos.filter((todo) => todo.id !== id);
-    setListOfTodos(updatedTodos);
-    listOfDoneTodos(id);
+    dispatch(deletedToDoAndAddToDoneTods(id));
     setSuccessAlert(true);
   };
 
-  const listOfDoneTodos = (id: string) => {
-    const doneToDo = listOfTodos.filter((todo) => todo.id === id);
-
-    setListOfDoneTodos((prevTodo) => [...doneToDo, ...prevTodo]);
-  };
-
-  const listOfDeletedTodos = (id: string) => {
-    const deletedToDo = listOfTodos.filter((todo) => todo.id === id);
-
-    setListOfDeletedTodos((prevTodo) => [...deletedToDo, ...prevTodo]);
-  };
-
   return {
-    deleteTodo,
+    deleteTodos,
     doneTodo,
     successAlert,
     deleteAlert,

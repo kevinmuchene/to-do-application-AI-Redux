@@ -5,14 +5,13 @@ import { Container, Grid, CardHeader } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormik } from "formik";
 import { getCurrentDateFormatted } from "../common/GetDate";
-import { useContext } from "react";
-import { TodoContext } from "../context/TodoContext";
 import { generateUuid } from "../common/GenerateId";
-import { ToDo } from "../common/interfaces/Interfaces";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToDo } from "./redux/slices/toDoSlice";
 
 export default function AddToDo() {
-  const { setListOfTodos } = useContext(TodoContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -23,15 +22,11 @@ export default function AddToDo() {
       dateCreated: getCurrentDateFormatted(),
     },
     onSubmit: (values, { resetForm }) => {
-      handleAddToDo(values);
+      dispatch(addToDo(values));
       resetForm();
       navigate("/");
     },
   });
-
-  const handleAddToDo = (newTodo: ToDo) => {
-    setListOfTodos((prevTodo) => [newTodo, ...prevTodo]);
-  };
 
   return (
     <Container sx={{ marginTop: "2em" }}>
