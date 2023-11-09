@@ -24,3 +24,15 @@ export interface DialogComponentProps {
   modalToDoList: ToDo[];
   doneOrDeleted: string;
 }
+
+export interface DeletedToDoState {
+  deletedToDos: ToDo[];
+}
+
+export interface DoneTodosState {
+  doneTodos: ToDo[];
+}
+
+export interface ToDoState {
+  toDos: ToDo[];
+}

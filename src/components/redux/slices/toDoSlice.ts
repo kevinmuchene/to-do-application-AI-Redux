@@ -1,14 +1,8 @@
-import { ToDo } from "../../../common/interfaces/Interfaces";
+import { ToDo, ToDoState } from "../../../common/interfaces/Interfaces";
 import { todos } from "../../../dummydata/todolist";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../Store";
 
-//Define a type for the slice state
-export interface ToDoState {
-  toDos: ToDo[];
-}
-
-// Define the intial state using that type
 const initialState: ToDoState = {
   toDos: todos,
 };

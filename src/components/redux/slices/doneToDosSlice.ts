@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ToDo } from "../../../common/interfaces/Interfaces";
+import { DoneTodosState, ToDo } from "../../../common/interfaces/Interfaces";
 import { doneList } from "../../../dummydata/todolist";
 import { RootState } from "../Store";
-
-export interface DoneTodosState {
-  doneTodos: ToDo[];
-}
 
 const initialState: DoneTodosState = {
   doneTodos: doneList,

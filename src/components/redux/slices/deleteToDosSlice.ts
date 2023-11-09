@@ -1,11 +1,7 @@
-import { ToDo } from "../../../common/interfaces/Interfaces";
+import { DeletedToDoState, ToDo } from "../../../common/interfaces/Interfaces";
 import { deletedTodos } from "../../../dummydata/todolist";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../Store";
-
-export interface DeletedToDoState {
-  deletedToDos: ToDo[];
-}
 
 const initialState: DeletedToDoState = {
   deletedToDos: deletedTodos,
