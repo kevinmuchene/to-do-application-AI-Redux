@@ -3,6 +3,7 @@ export interface ToDo {
   description: string;
   dateCreated: string;
   title: string;
+  status: "ACTIVE"|"COMPLETED" | "DELETED";
 }
 
 export interface AlertProps {

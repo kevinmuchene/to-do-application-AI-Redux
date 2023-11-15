@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import AddToDo from "./components/AddToDo";
 import ToDoListWrapper from "./components/ToDoListWrapper";
-//kk
 import RootLayout from "./components/RootLayout";
 
 const router = createBrowserRouter(
