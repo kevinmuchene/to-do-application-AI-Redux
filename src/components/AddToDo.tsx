@@ -5,25 +5,35 @@ import { Container, Grid, CardHeader } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormik } from "formik";
 import { getCurrentDateFormatted } from "../common/GetDate";
+import { generateUuid } from "../common/GenerateId";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToDo } from "./redux/slices/toDoSlice";
 
 export default function AddToDo() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
+      id: generateUuid(),
       title: "",
       description: "",
       dateCreated: getCurrentDateFormatted(),
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      dispatch(addToDo(values));
       resetForm();
+      navigate("/");
     },
   });
+
   return (
     <Container sx={{ marginTop: "2em" }}>
-      <Card sx={{ minWidth: 300, backgroundColor: "#80b8f0" }}>
+      <Card sx={{ minWidth: 300, backgroundColor: "#ACE1AF" }}>
         <CardHeader
           title={
-            <Typography variant="h5" color={"purple"}>
+            <Typography variant="h5" color={"#ff5f00"}>
               Add It! Get It Done!
             </Typography>
           }
