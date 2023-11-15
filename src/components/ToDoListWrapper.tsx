@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Container, Typography, Alert, Grid } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ToDoItem from "./ToDoItem";
@@ -13,15 +13,22 @@ import { useAppSelector } from "./redux/Hooks";
 import { selectTodo } from "./redux/slices/toDoSlice";
 import { selectDoneTodos } from "./redux/slices/doneToDosSlice";
 import { selectDeletedTodos } from "./redux/slices/deleteToDosSlice";
+import { TodoStatus } from "../common/enums/enums";
 
 export default function ToDoListWrapper() {
   const toDos = useAppSelector(selectTodo);
+  console.log(toDos);
   const doneToDos = useAppSelector(selectDoneTodos);
   const deleteToDos = useAppSelector(selectDeletedTodos);
 
   const [open, setOpen] = React.useState<boolean>(false);
-  const [modalToDoList, setModalToDoList] = React.useState<ToDo[]>([]);
-  const [doneOrDeleted, setDoneOrDeleted] = React.useState<string>("");
+  const [modalToDoList, setModalToDoList] = useState<ToDo[]>([]);
+  const [doneOrDeleted, setDoneOrDeleted] = useState<string>("");
+  const [activeToDos, setActiveToDos] = useState<ToDo[]>([]);
+
+  useEffect(() => {
+    filterActiveToDos();
+  }, [toDos]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,6 +46,14 @@ export default function ToDoListWrapper() {
   const setModalDeletedTodos = () => {
     setModalToDoList(deleteToDos);
     setDoneOrDeleted("deleted");
+  };
+
+  const filterActiveToDos = () => {
+    const activeToDos = toDos.filter(
+      (toDo) => toDo.status === TodoStatus.Active
+    );
+
+    setActiveToDos(activeToDos);
   };
 
   return (
@@ -156,8 +171,10 @@ export default function ToDoListWrapper() {
               </Grid>
             </Grid>
 
-            {toDos.length !== 0 ? (
-              toDos.map((todo, index) => <ToDoItem key={index} todo={todo} />)
+            {activeToDos.length !== 0 ? (
+              activeToDos.map((todo, index) => (
+                <ToDoItem key={index} todo={todo} />
+              ))
             ) : (
               <Alert variant="filled" severity="warning">
                 You Don't Have Any ToDos, Add - To Get Them Done!! Or View
