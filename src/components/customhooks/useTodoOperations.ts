@@ -1,7 +1,6 @@
 import { useAlert } from "./useAlert";
 import { useAppDispatch } from "../redux/Hooks";
-import { deletedToDoAndAddToDoneTods } from "../redux/thunks/deleteToDoAndAddToDoneTodos";
-import { deleteToDoAndAddToDeleted } from "../redux/thunks/deleteToDoAndAddToDeleted";
+import { completedTodo, deleteToDo } from "../redux/slices/toDoSlice";
 
 export const useTodoOperations = () => {
   const dispatch = useAppDispatch();
@@ -10,18 +9,18 @@ export const useTodoOperations = () => {
   const [deleteAlert, setDeleteAlert] = useAlert(false);
 
   const deleteTodos = (id: string) => {
-    dispatch(deleteToDoAndAddToDeleted(id));
+    dispatch(deleteToDo(id));
     setDeleteAlert(true);
   };
 
-  const doneTodo = (id: string) => {
-    dispatch(deletedToDoAndAddToDoneTods(id));
+  const completedTodos = (id: string) => {
+    dispatch(completedTodo(id));
     setSuccessAlert(true);
   };
 
   return {
     deleteTodos,
-    doneTodo,
+    completedTodos,
     successAlert,
     deleteAlert,
   };

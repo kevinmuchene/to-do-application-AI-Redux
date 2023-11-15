@@ -9,6 +9,7 @@ import { generateUuid } from "../common/GenerateId";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToDo } from "./redux/slices/toDoSlice";
+import { TodoStatus } from "../common/enums/enums";
 
 export default function AddToDo() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function AddToDo() {
       title: "",
       description: "",
       dateCreated: getCurrentDateFormatted(),
+      status: TodoStatus.Active,
     },
     onSubmit: (values, { resetForm }) => {
       dispatch(addToDo(values));

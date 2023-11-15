@@ -3,7 +3,7 @@ export interface ToDo {
   description: string;
   dateCreated: string;
   title: string;
-  status: "ACTIVE"|"COMPLETED" | "DELETED";
+  status: "ACTIVE"|"COMPELETED" | "DELETED";
 }
 
 export interface AlertProps {
@@ -16,7 +16,7 @@ export interface MyComponentProps {
   date: string;
   deleteTodo: (id: string) => void;
   id: string;
-  doneTodo: (id: string) => void;
+  completedTodos: (id: string) => void;
 }
 
 export interface DialogComponentProps {

@@ -11,15 +11,12 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useAppSelector } from "./redux/Hooks";
 import { selectTodo } from "./redux/slices/toDoSlice";
-import { selectDoneTodos } from "./redux/slices/doneToDosSlice";
-import { selectDeletedTodos } from "./redux/slices/deleteToDosSlice";
+
 import { TodoStatus } from "../common/enums/enums";
 
 export default function ToDoListWrapper() {
   const toDos = useAppSelector(selectTodo);
-  console.log(toDos);
-  const doneToDos = useAppSelector(selectDoneTodos);
-  const deleteToDos = useAppSelector(selectDeletedTodos);
+  // console.log(toDos);
 
   const [open, setOpen] = React.useState<boolean>(false);
   const [modalToDoList, setModalToDoList] = useState<ToDo[]>([]);
@@ -38,22 +35,28 @@ export default function ToDoListWrapper() {
     setOpen(false);
   };
 
-  const setModalDoneTodos = () => {
-    setModalToDoList(doneToDos);
-    setDoneOrDeleted("done");
-  };
-
-  const setModalDeletedTodos = () => {
-    setModalToDoList(deleteToDos);
-    setDoneOrDeleted("deleted");
-  };
-
   const filterActiveToDos = () => {
     const activeToDos = toDos.filter(
       (toDo) => toDo.status === TodoStatus.Active
     );
 
     setActiveToDos(activeToDos);
+  };
+
+  const filterCompletedToDos = () => {
+    const completedToDos = toDos.filter(
+      (toDo) => toDo.status === TodoStatus.Completed
+    );
+    setModalToDoList(completedToDos);
+    setDoneOrDeleted("done");
+  };
+
+  const filterDeletedToDos = () => {
+    const deletedToDos = toDos.filter(
+      (toDo) => toDo.status === TodoStatus.Deleted
+    );
+    setModalToDoList(deletedToDos);
+    setDoneOrDeleted("deleted");
   };
 
   return (
@@ -135,7 +138,7 @@ export default function ToDoListWrapper() {
                   sx={{ marginBottom: "1em" }}
                   onClick={() => {
                     handleClickOpen();
-                    setModalDoneTodos();
+                    filterCompletedToDos();
                   }}
                   startIcon={<ChecklistIcon />}
                 >
@@ -162,7 +165,7 @@ export default function ToDoListWrapper() {
                   sx={{ marginBottom: "1em" }}
                   onClick={() => {
                     handleClickOpen();
-                    setModalDeletedTodos();
+                    filterDeletedToDos();
                   }}
                   startIcon={<DeleteForeverIcon />}
                 >

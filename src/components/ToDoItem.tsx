@@ -19,7 +19,7 @@ import { CustomAlert } from "./resuable/CustomAlert";
 export default function ToDoItem({ todo }: { todo: ToDo }) {
   const { id, dateCreated, title, description } = todo;
 
-  const { deleteTodos, doneTodo, successAlert, deleteAlert } =
+  const { deleteTodos, completedTodos, successAlert, deleteAlert } =
     useTodoOperations();
 
   return (
@@ -48,7 +48,7 @@ export default function ToDoItem({ todo }: { todo: ToDo }) {
                 date={dateCreated}
                 deleteTodo={deleteTodos}
                 id={id}
-                doneTodo={doneTodo}
+                completedTodos={completedTodos}
               />
             </Grid>
           </Grid>
@@ -86,7 +86,7 @@ const MyComponent: React.FC<MyComponentProps> = ({
   date,
   deleteTodo,
   id,
-  doneTodo,
+  completedTodos,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -120,7 +120,11 @@ const MyComponent: React.FC<MyComponentProps> = ({
           </Stack>
         </Grid>
         <Grid item>
-          <IconButton edge="end" aria-label="done" onClick={() => doneTodo(id)}>
+          <IconButton
+            edge="end"
+            aria-label="done"
+            onClick={() => completedTodos(id)}
+          >
             <DoneIcon sx={{ color: "green" }} />
           </IconButton>
         </Grid>
