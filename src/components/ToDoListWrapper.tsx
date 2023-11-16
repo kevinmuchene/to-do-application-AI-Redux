@@ -13,15 +13,19 @@ import { useAppSelector } from "./redux/Hooks";
 import { selectTodo } from "./redux/slices/toDoSlice";
 
 import { TodoStatus } from "../common/enums/enums";
+import TestComponent from "./TipsDialog";
 
 export default function ToDoListWrapper() {
   const toDos = useAppSelector(selectTodo);
   // console.log(toDos);
 
   const [open, setOpen] = React.useState<boolean>(false);
+  const [tipsModalOpen, setTipsModalOpen] = React.useState<boolean>(false);
   const [modalToDoList, setModalToDoList] = useState<ToDo[]>([]);
   const [doneOrDeleted, setDoneOrDeleted] = useState<string>("");
   const [activeToDos, setActiveToDos] = useState<ToDo[]>([]);
+  const [tipsId, setTipsId] = useState<string>("");
+  const [status, setStatus] = useState<boolean>(false);
 
   useEffect(() => {
     filterActiveToDos();
@@ -31,8 +35,17 @@ export default function ToDoListWrapper() {
     setOpen(true);
   };
 
+  const handleTipsModalClickOpen = (id: string) => {
+    setStatus(true);
+    setTipsModalOpen(true);
+    setTipsId(id);
+  };
+
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleTipsModalClose = () => {
+    setTipsModalOpen(false);
   };
 
   const filterActiveToDos = () => {
@@ -67,6 +80,13 @@ export default function ToDoListWrapper() {
         modalToDoList={modalToDoList}
         doneOrDeleted={doneOrDeleted}
       />
+      {status && (
+        <TestComponent
+          tipId={tipsId}
+          open={tipsModalOpen}
+          handleClose={handleTipsModalClose}
+        />
+      )}
       <Box
         sx={{
           display: "flex",
@@ -146,14 +166,14 @@ export default function ToDoListWrapper() {
                 </Button>
               </Grid>
               <Grid item>
-                <Link to="/add_to_do">
+                <Link to="/add_todo">
                   <Button
                     variant="outlined"
                     color="warning"
                     sx={{ marginBottom: "1em" }}
                     startIcon={<AddIcon />}
                   >
-                    Add ToDo
+                    Add ToDo | Meetings To-Do
                   </Button>
                 </Link>
               </Grid>
@@ -176,12 +196,15 @@ export default function ToDoListWrapper() {
 
             {activeToDos.length !== 0 ? (
               activeToDos.map((todo, index) => (
-                <ToDoItem key={index} todo={todo} />
+                <ToDoItem
+                  key={index}
+                  todo={todo}
+                  handleTipsModalClickOpen={handleTipsModalClickOpen}
+                />
               ))
             ) : (
               <Alert variant="filled" severity="warning">
-                You Don't Have Any ToDos, Add - To Get Them Done!! Or View
-                Completed | Deleted
+                You Don't Have Any ToDos.
               </Alert>
             )}
           </Container>

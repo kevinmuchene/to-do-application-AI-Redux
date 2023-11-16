@@ -1,5 +1,5 @@
-import React from "react";
-import { List, Grid, Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { List, Grid, Stack, Tooltip } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import CancelIcon from "@mui/icons-material/Cancel";
 import DoneIcon from "@mui/icons-material/Done";
+import AssistantOutlinedIcon from "@mui/icons-material/AssistantOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -16,8 +17,13 @@ import { MyComponentProps, ToDo } from "../common/interfaces/Interfaces";
 import { useTodoOperations } from "./customhooks/useTodoOperations";
 import { CustomAlert } from "./resuable/CustomAlert";
 
-export default function ToDoItem({ todo }: { todo: ToDo }) {
-  const { id, dateCreated, title, description } = todo;
+export default function ToDoItem({
+  todo,
+  handleTipsModalClickOpen,
+}: {
+  todo: ToDo;
+}) {
+  const { id, dateCreated, title, description, tipData } = todo;
 
   const { deleteTodos, completedTodos, successAlert, deleteAlert } =
     useTodoOperations();
@@ -49,6 +55,8 @@ export default function ToDoItem({ todo }: { todo: ToDo }) {
                 deleteTodo={deleteTodos}
                 id={id}
                 completedTodos={completedTodos}
+                handleTipsModalClickOpen={handleTipsModalClickOpen}
+                tipData={tipData}
               />
             </Grid>
           </Grid>
@@ -87,9 +95,18 @@ const MyComponent: React.FC<MyComponentProps> = ({
   deleteTodo,
   id,
   completedTodos,
+  handleTipsModalClickOpen,
+  tipData,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [disable, setDisable] = useState(true);
+
+  useEffect(() => {
+    if (tipData.length) {
+      setDisable(false);
+    }
+  }, [tipData]);
 
   if (isMobile) {
     // For mobile devices, stack the icons vertically
@@ -111,6 +128,35 @@ const MyComponent: React.FC<MyComponentProps> = ({
     // For larger devices, use the original layout
     return (
       <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          {disable ? (
+            <InfoToolTip>
+              <IconButton
+                // sx={{ marginBottom: "0.5em" }}
+
+                edge="end"
+                aria-label="done"
+                onClick={() => handleTipsModalClickOpen(id)}
+              >
+                <AssistantOutlinedIcon
+                  sx={{ color: disable ? "grey" : "green" }}
+                />
+              </IconButton>
+            </InfoToolTip>
+          ) : (
+            <IconButton
+              // sx={{ marginBottom: "0.5em" }}
+              disabled={disable}
+              edge="end"
+              aria-label="done"
+              onClick={() => handleTipsModalClickOpen(id)}
+            >
+              <AssistantOutlinedIcon
+                sx={{ color: disable ? "grey" : "green" }}
+              />
+            </IconButton>
+          )}
+        </Grid>
         <Grid item>
           <Stack alignItems="center" direction="row" spacing={1}>
             <IconButton edge="end" aria-label="calendar">
@@ -141,3 +187,15 @@ const MyComponent: React.FC<MyComponentProps> = ({
     );
   }
 };
+
+function InfoToolTip({ children }) {
+  return (
+    <Tooltip
+      title={
+        <Typography color={"white"}>"Gathering Tips For You :)"</Typography>
+      }
+    >
+      {children}
+    </Tooltip>
+  );
+}

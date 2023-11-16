@@ -8,12 +8,15 @@ import { getCurrentDateFormatted } from "../common/GetDate";
 import { generateUuid } from "../common/GenerateId";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToDo } from "./redux/slices/toDoSlice";
 import { TodoStatus } from "../common/enums/enums";
+import useGenerateTips from "../common/TransformAIResponseObject";
+import { addToDo } from "./redux/slices/toDoSlice";
 
 export default function AddToDo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [generatedTipsByAI] = useGenerateTips();
 
   const formik = useFormik({
     initialValues: {
@@ -22,9 +25,11 @@ export default function AddToDo() {
       description: "",
       dateCreated: getCurrentDateFormatted(),
       status: TodoStatus.Active,
+      tipData: [],
     },
     onSubmit: (values, { resetForm }) => {
       dispatch(addToDo(values));
+      generatedTipsByAI(values.id, `${values.title}. ${values.description}`);
       resetForm();
       navigate("/");
     },

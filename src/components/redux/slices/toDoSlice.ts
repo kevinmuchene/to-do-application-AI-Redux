@@ -8,6 +8,11 @@ const initialState: ToDoState = {
   toDos: todos,
 };
 
+type AddATipsPayload = {
+  id: string,
+  data: []
+}
+
 export const toDoSlice = createSlice({
   name: "todo",
 
@@ -36,10 +41,23 @@ export const toDoSlice = createSlice({
       
       state.toDos = updatedToDos;
     },
+
+    addAITips: (state, action: PayloadAction<AddATipsPayload>) => {
+
+      const {id, data} = action.payload
+
+      const updatedToDos = state.toDos.map(todo => (
+        todo.id === id ? {...todo, tipData: data} : todo
+      ))
+
+      state.toDos = updatedToDos;
+    },
+
+    
   },
 });
 
-export const { addToDo, deleteToDo, completedTodo } = toDoSlice.actions;
+export const { addToDo, deleteToDo, completedTodo, addAITips } = toDoSlice.actions;
 
 export const selectTodo = (state: RootState) => state.todo.toDos;
 

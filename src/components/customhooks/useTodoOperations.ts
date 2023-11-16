@@ -1,6 +1,6 @@
 import { useAlert } from "./useAlert";
 import { useAppDispatch } from "../redux/Hooks";
-import { completedTodo, deleteToDo } from "../redux/slices/toDoSlice";
+import {  completedTodo, deleteToDo } from "../redux/slices/toDoSlice";
 
 export const useTodoOperations = () => {
   const dispatch = useAppDispatch();
@@ -18,9 +18,14 @@ export const useTodoOperations = () => {
     setSuccessAlert(true);
   };
 
+  // const tipsByAI = (id: string) => {
+  //   dispatch(addAITip(id))
+  // }
+
   return {
     deleteTodos,
     completedTodos,
+    // tipsByAI,
     successAlert,
     deleteAlert,
   };

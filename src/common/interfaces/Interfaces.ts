@@ -4,6 +4,8 @@ export interface ToDo {
   dateCreated: string;
   title: string;
   status: "ACTIVE"|"COMPELETED" | "DELETED";
+  tipData: []
+
 }
 
 export interface AlertProps {
