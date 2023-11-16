@@ -69,7 +69,9 @@ export default function ToDoItem({
           />
         </ListItemAvatar>
         <ListItemText
-          primary={<Typography color={"secondary"}>{title}</Typography>}
+          primary={
+            <Typography color={"secondary"}>{title.slice(0, 80)}</Typography>
+          }
           secondary={
             <React.Fragment>
               <Typography
@@ -78,7 +80,7 @@ export default function ToDoItem({
                 variant="body2"
                 color="text.primary"
               >
-                {description}
+                {description.slice(0, 80)}
               </Typography>
             </React.Fragment>
           }
@@ -129,11 +131,26 @@ const MyComponent: React.FC<MyComponentProps> = ({
     return (
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          {disable ? (
-            <InfoToolTip>
+          <Stack alignItems="center" direction="row" spacing={1}>
+            <Typography variant="caption">Tips</Typography>
+            {disable ? (
+              <InfoToolTip>
+                <IconButton
+                  // sx={{ marginBottom: "0.5em" }}
+
+                  edge="end"
+                  aria-label="done"
+                  onClick={() => handleTipsModalClickOpen(id)}
+                >
+                  <AssistantOutlinedIcon
+                    sx={{ color: disable ? "grey" : "green" }}
+                  />
+                </IconButton>
+              </InfoToolTip>
+            ) : (
               <IconButton
                 // sx={{ marginBottom: "0.5em" }}
-
+                disabled={disable}
                 edge="end"
                 aria-label="done"
                 onClick={() => handleTipsModalClickOpen(id)}
@@ -142,21 +159,10 @@ const MyComponent: React.FC<MyComponentProps> = ({
                   sx={{ color: disable ? "grey" : "green" }}
                 />
               </IconButton>
-            </InfoToolTip>
-          ) : (
-            <IconButton
-              // sx={{ marginBottom: "0.5em" }}
-              disabled={disable}
-              edge="end"
-              aria-label="done"
-              onClick={() => handleTipsModalClickOpen(id)}
-            >
-              <AssistantOutlinedIcon
-                sx={{ color: disable ? "grey" : "green" }}
-              />
-            </IconButton>
-          )}
+            )}
+          </Stack>
         </Grid>
+
         <Grid item>
           <Stack alignItems="center" direction="row" spacing={1}>
             <IconButton edge="end" aria-label="calendar">
