@@ -99,16 +99,13 @@ export default function ToDoListWrapper() {
         }}
       >
         <div>
-          <Typography component={"span"}>
-            <DoneAllIcon sx={{ color: "purple" }} />
-          </Typography>
           <Typography
             color="purple"
             align="center"
             variant="h5"
             component={"span"}
           >
-            Get-It-Done
+            A New Era in To-Do Management!
           </Typography>
         </div>
       </Box>

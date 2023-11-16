@@ -61,7 +61,7 @@ export default function ExtractMeetings() {
     let timer = setTimeout(() => {
       setShowAlert(false);
       navigate("/");
-    }, 10000);
+    }, 8000);
 
     return () => clearTimeout(timer);
   }, [showAlert]);
