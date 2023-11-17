@@ -14,7 +14,7 @@ import { generateUuid } from "../common/GenerateId";
 import { getCurrentDateFormatted } from "../common/GetDate";
 import { TodoStatus } from "../common/enums/enums";
 import { ToDo } from "../common/interfaces/Interfaces";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 let initialValues = {
   id: "",
@@ -56,12 +56,19 @@ export default function ExtractMeetings() {
   const navigate = useNavigate();
   const [generatedTipsByAI] = useGenerateTips();
   const [showAlert, setShowAlert] = useState(false);
+  const isMounted = useRef(true);
 
   useEffect(() => {
-    let timer = setTimeout(() => {
-      setShowAlert(false);
-      navigate("/");
-    }, 8000);
+    let timer;
+
+    if (showAlert) {
+      timer = setTimeout(() => {
+        if (isMounted.current) {
+          setShowAlert(false);
+          navigate("/");
+        }
+      }, 8000);
+    }
 
     return () => clearTimeout(timer);
   }, [showAlert]);
