@@ -1,4 +1,4 @@
-# Todo Application - React with useContext and Redux
+# Todo Application(OpenAI) - React with useContext and Redux
 
 ## Overview
 
